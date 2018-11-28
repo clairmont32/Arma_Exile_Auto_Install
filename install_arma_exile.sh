@@ -43,6 +43,7 @@ cd /home/arma3server
 if [ ! `ls tmp/exile > /dev/null 2>&1` ];
 then
 	mkdir tmp/exile
+	chown arma3server:arma3server tmp/exile
 	cd tmp/exile
 else
 	cd tmp/exile/
@@ -54,7 +55,7 @@ echo -e "${CYAN}Downloading and extracting Exile and ExileServer mod.${NC}"
 sleep 2
 if [! `ls tmp/exile/linuxsgm.sh > /dv/null 2>&1`];
 then
-	wget -O linuxgsm.sh https://linuxgsm.sh && chmod +x linuxgsm.sh && bash linuxgsm.sh ${USER}
+	sudo -u arma3server "wget -O linuxgsm.sh https://linuxgsm.sh && chmod +x linuxgsm.sh && bash linuxgsm.sh" ${USER}
 fi
 
 # prompt for steam creds, create lgsm config, start arma 3 server install
@@ -63,11 +64,10 @@ read steam_user
 echo -e "Enter your steam password. If you have Steam Guard on you will be prompted for the code shortly."
 read steam_pass
 
-echo "steamuser=\"$steam_user\"" > "lgsm/config-lgsm/arma3server/common.cfg"
-echo "steampass=\"$steam_pass\"" >> "lgsm/config-lgsm/arma3server/common.cfg"
+sudo -u arma3server echo "steamuser=\"$steam_user\"" > "lgsm/config-lgsm/arma3server/common.cfg"; echo "steampass=\"$steam_pass\"" >> "lgsm/config-lgsm/arma3server/common.cfg"
 steam_user=""
 steam_pass=""
-./arma3server install
+sudo -u arma3server "./arma3server install"
 
 : <<'COMMENT'
 # unzip and cleanup of archive
