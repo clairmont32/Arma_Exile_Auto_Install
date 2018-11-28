@@ -5,7 +5,7 @@ CYAN='\033[0;36m'  # cyan
 RED='\033[0;31m'  #red 
 INSTALL_PATH=$"/arma"
 
-: <<'COMMENT'
+#: <<'COMMENT'
 # create user for server
 USER="arma3server"
 echo -e "${CYAN}Creating a user for the server to run under #security${NC}"
@@ -45,7 +45,7 @@ else
 fi
 
 # check if mod/lgsm is downloaded. if not, download them.
-COMMENT
+#COMMENT
 
 echo -e "${CYAN}Downloading and extracting Exile and ExileServer mod.${NC}"
 sleep 2
