@@ -10,18 +10,20 @@ INSTALL_PATH=$"/arma"
 USER="arma3server"
 echo -e "${CYAN}Creating a user for the arma server to run under... #security${NC}"
 sleep 1
-echo -e "${CYAN}Enter a password for the new user:${NC}"
 # check if user already exists. if not, create it
 if [ `id -u $USER 2>/dev/null || echo -1` -ge 0 ]; then
 	echo -e "${CYAN}$USER already present... proceeding."
 else
-	read USER_PASSWORD
 	
-	if [ ! -d "/home/$USER" ]; 
+	if [ ! `ls "/home/$USER > /dev/nul 2>&1` ]; 
+		echo -e "${CYAN}Enter a password for the new user:${NC}"
+		read USER_PASSWORD
+
 	then
 		useradd -m -p $USER_PASSWORD -s /bin/bash arma3server
 	else 
 		useradd -p $USER_PASSWORD -s /bin/bash arma3server
+	USER_PASSWORD=""  # #security
 	fi
 fi
 
@@ -61,12 +63,12 @@ fi
 # prompt for steam creds, create lgsm config, start arma 3 server install
 echo -e "${CYAN}Enter your steam username."
 read steam_user
-echo -e "Enter your steam password. If you have Steam Guard on you will be prompted for the code shortly."
+echo -e "Enter your steam password. If you have Steam Guard on you will be prompted for the code shortly. ${NC}"
 read steam_pass
 
 sudo -u arma3server echo "steamuser=\"$steam_user\"" > "lgsm/config-lgsm/arma3server/common.cfg"; echo "steampass=\"$steam_pass\"" >> "lgsm/config-lgsm/arma3server/common.cfg"
-steam_user=""
-steam_pass=""
+steam_user=""  # #security
+steam_pass=""  # #security
 sudo -u arma3server "./arma3server install"
 
 : <<'COMMENT'
