@@ -41,7 +41,7 @@ dpkg --add-architecture i386; sudo apt update; sudo apt install mailutils postfi
 # switch to arma3server user for the rest of manipulation
 sudo chown arma3server:arma3server /home/arma3server
 sudo su arma3server -c "cd /home/arma3server"
-
+pwd
 # check if mod/lgsm is downloaded. if not, download them.
 #COMMENT
 echo -e "${CYAN}Installing LGSM...${NC}"
