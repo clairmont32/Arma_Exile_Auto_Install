@@ -3,6 +3,8 @@
 NC='\033[0m'  # no color
 CYAN='\033[0;36m'  # cyan
 RED='\033[0;31m'  #red 
+USER_PATH="/home/arma3server"
+LGSM_CONFIG_PATH="lgsm/config-lgsm/arma3server"
 
 # create user for server
 #: <<'COMMENT'
@@ -40,28 +42,28 @@ dpkg --add-architecture i386; sudo apt update; sudo apt install mailutils postfi
 
 # switch to arma3server user for the rest of manipulation
 sudo chown arma3server:arma3server /home/arma3server
-sudo su arma3server -c "cd /home/arma3server"
-pwd
 # check if mod/lgsm is downloaded. if not, download them.
 #COMMENT
 echo -e "${CYAN}Installing LGSM...${NC}"
 sleep 2
-if  [ ! `ls tmp/exile/linuxsgm.sh > /dev/null 2>&1` ];
+if  [ ! `sudo su arma3server -c "ls ${USER_PATH}/linuxsgm.sh" > /dev/null 2>&1` ];
 then
-	wget -O linuxgsm.sh https://linuxgsm.sh && chmod +x linuxgsm.sh && bash linuxgsm.sh ${USER}
+	sudo su arma3server -c "cd ${USER_PATH} && wget -O linuxgsm.sh https://linuxgsm.sh && chmod +x linuxgsm.sh && bash linuxgsm.sh arma3server"
+	# prompt for steam creds, create lgsm config, start arma 3 server install
+	echo -e "${CYAN}Enter your steam username."
+	read steam_user
+	echo -e "Enter your steam password. If you have Steam Guard on you will be prompted for the code shortly. ${NC}"
+	read steam_pass
+	sudo su arma3server -c "cd ${USER_PATH} && mkdir lgsm/config-lgsm/ && mkdir lgsm/config-lgsm/arma3server/ && touch lgsm/config-lgsm/arma3server/common.cfg"
+	sudo su arma3server -c "echo steamuser=\"$steam_user\"  ${LGSM_CONFIG_PATH}/common.cfg; steampass=\"$steam_pass\" >> ${LGSM_CONFIG_PATH}/common.cfg"
+
+	steam_user=""  # #security
+	steam_pass=""  # #security
+	sudo su arma3server -c "cd ${USER_PATH} && ./arma3server install"
+
+
 fi
 
-# prompt for steam creds, create lgsm config, start arma 3 server install
-echo -e "${CYAN}Enter your steam username."
-read steam_user
-echo -e "Enter your steam password. If you have Steam Guard on you will be prompted for the code shortly. ${NC}"
-read steam_pass
-sudo -u arma3server "touch lgsm/config-lgsm/arma3server/common.cfg"
-
-sudo -u arma3server "echo steamuser=$steam_user > lgsm/config-lgsm/arma3server/common.cfg; steampass=$steam_pass >> lgsm/config-lgsm/arma3server/common.cfg"
-steam_user=""  # #security
-steam_pass=""  # #security
-sudo -u arma3server "./arma3server install"
 
 : <<'COMMENT'
 # unzip and cleanup of archive
