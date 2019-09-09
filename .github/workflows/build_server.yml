@@ -7,7 +7,7 @@ jobs:
 
     runs-on: ubuntu-latest
     with: 
-        USER_PASSWORD ${{ secrets.user_pass }}
+        USER_PASSWORD: ${{ secrets.user_pass }}
    
    steps:
    - uses: actions/checkout@v1
