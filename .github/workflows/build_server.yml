@@ -1,0 +1,16 @@
+name: Build Arma Server
+
+on: [push]
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+    
+    steps:
+    - uses: actions/checkout@v1
+    - name: Update VM
+      run: sudo apt-get update -y
+    - name: Run a multi-line script
+      run: 
+        ./install_arma_server.sh
