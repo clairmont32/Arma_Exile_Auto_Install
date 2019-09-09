@@ -7,7 +7,7 @@ USER_PATH="/home/arma3server"
 LGSM_CONFIG_PATH="lgsm/config-lgsm/arma3server"
 
 # create user for server
-: <<'COMMENT'
+#: <<'COMMENT'
 USER="arma3server"
 echo -e "${CYAN}Creating a user for the arma server to run under... #security${NC}"
 sleep 1
@@ -43,7 +43,7 @@ dpkg --add-architecture i386; sudo apt update; sudo apt install mailutils postfi
 # switch to arma3server user for the rest of manipulation
 sudo chown arma3server:arma3server /home/arma3server
 # check if mod/lgsm is downloaded. if not, download them.
-COMMENT
+#COMMENT
 echo -e "${CYAN}Installing LGSM...${NC}"
 sleep 2
 if  [ `cd ${USER_PATH}`  ! `ls ${USER_PATH}/linuxsgm.sh > /dev/null 2>&1` ];
@@ -65,7 +65,7 @@ then
 fi
 
 
-: <<'COMMENT'
+#: <<'COMMENT'
 # unzip and cleanup of archive
 if [ ! `ls -l @Exile/ > /dev/null 2>&1` ] || [ ! `ls -l "Arma 3 Server" > /dev/null 2>&1` ];
 then
@@ -88,4 +88,4 @@ fi
 
 mv -r tmp/exile/@Exile arma/@exile
 mv -r tmp/exile/"Arma 3 Server"/@ExileServer arma
-COMMENT
+#COMMENT
