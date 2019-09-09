@@ -6,13 +6,17 @@ jobs:
   build:
 
     runs-on: ubuntu-latest
-    
-    steps:
-    - uses: actions/checkout@v1
+     
+   with: 
+        USER_PASSWORD ${{ secrets.user_pass }}
+   
+   steps:
+   - uses: actions/checkout@v1
     - name: Update VM
       run: sudo apt-get update -y
     - name: Run a multi-line script
-      with: 
-        USER_PASSWORD ${{ secrets.user_pass }}
-        run: 
-          ./install_arma_server.sh
+      run: 
+        ./install_arma_server.sh
+
+    
+      
