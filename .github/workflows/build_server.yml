@@ -14,5 +14,5 @@ jobs:
     - name: Run a multi-line script
       with: 
         USER_PASSWORD ${{ secrets.user_pass }}
-      run: 
-        ./install_arma_server.sh
+        run: 
+          ./install_arma_server.sh
