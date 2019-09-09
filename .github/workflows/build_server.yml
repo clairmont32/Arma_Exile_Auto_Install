@@ -6,8 +6,7 @@ jobs:
   build:
 
     runs-on: ubuntu-latest
-     
-   with: 
+    with: 
         USER_PASSWORD ${{ secrets.user_pass }}
    
    steps:
