@@ -11,4 +11,6 @@ jobs:
      - name: Update VM
        run: sudo apt-get update -y
      - name: Run installer
+       run: 
         ./install_arma_server.sh
+     
