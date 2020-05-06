@@ -8,7 +8,7 @@ jobs:
     runs-on: ubuntu-latest   
     steps:
      - uses: actions/checkout@v2
+       timeout-minutes: 3
      - name: Run installer
        run: 
         ./install_arma_server.sh
-     
