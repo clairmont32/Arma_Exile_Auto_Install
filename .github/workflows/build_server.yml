@@ -10,5 +10,4 @@ jobs:
      - uses: actions/checkout@v2
        timeout-minutes: 3
      - name: Run installer
-       run: 
-        ./install_arma_server.sh
+       run: ./install-arma3server.sh
